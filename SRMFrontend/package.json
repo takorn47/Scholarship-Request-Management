@@ -1,0 +1,44 @@
+{
+  "name": "srmfrontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "dev:ssl": "cross-env VITE_SSL=true react-router dev",
+    "start": "serve -s build/client -l 3000",
+    "typecheck": "react-router typegen && tsc"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@hookform/resolvers": "^5.8.0",
+    "@mui/icons-material": "^9.3.1",
+    "@mui/material": "^9.3.1",
+    "@react-router/node": "^7.1.1",
+    "@react-router/serve": "^7.1.1",
+    "axios": "^1.19.0",
+    "isbot": "^5.1.36",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-hook-form": "^7.85.0",
+    "react-router": "^7.1.1",
+    "recharts": "^3.10.1",
+    "serve": "^14.2.5",
+    "sweetalert2": "^11.26.25",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.1.1",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/node": "^22",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "cross-env": "^10.1.0",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.3"
+  }
+}
