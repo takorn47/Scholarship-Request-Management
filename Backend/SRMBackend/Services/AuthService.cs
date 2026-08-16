@@ -4,6 +4,7 @@ using SRMBackend.Entities;
 using SRMBackend.IService;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace SRMBackend.Services
@@ -58,6 +59,11 @@ namespace SRMBackend.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public string GenerateCsrfToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
         }
 
     }

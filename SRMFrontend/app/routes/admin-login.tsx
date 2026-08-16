@@ -25,8 +25,7 @@ export default function AdminLogin() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const { token, expiresInMinutes } = await login(username, password);
-      useAuthStore.getState().setSession(token, expiresInMinutes);
+      await login(username, password);
       const me = await getMe();
       useAuthStore.getState().setUser(me);
       navigate("/admin");

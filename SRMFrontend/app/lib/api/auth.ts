@@ -1,7 +1,6 @@
 import { apiClient } from "./client";
 
 export interface LoginResponse {
-  token: string;
   expiresInMinutes: number;
 }
 
@@ -20,14 +19,21 @@ export async function login(
   username: string,
   password: string,
 ): Promise<LoginResponse> {
-  const res = await apiClient.post<LoginResponse>("/api/Auth/login", {
-    username,
-    password,
-  });
+  const res = await apiClient.post<LoginResponse>(
+    "/api/Auth/login",
+    { username, password },
+    { skipAuthRedirect: true },
+  );
   return res.data;
 }
 
 export async function getMe(): Promise<MeResponse> {
-  const res = await apiClient.get<MeResponse>("/api/Auth/me");
+  const res = await apiClient.get<MeResponse>("/api/Auth/me", {
+    skipAuthRedirect: true,
+  });
   return res.data;
+}
+
+export async function logout(): Promise<void> {
+  await apiClient.post("/api/Auth/logout", null, { skipAuthRedirect: true });
 }

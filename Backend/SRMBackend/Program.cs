@@ -8,6 +8,7 @@ using Scalar.AspNetCore;
 using SRMBackend.DTOs;
 using SRMBackend.Entities;
 using SRMBackend.IService;
+using SRMBackend.Middleware;
 using SRMBackend.Services;
 using SRMBackend.Utils.Automapper;
 using System.Text;
@@ -141,6 +142,7 @@ app.UseCors(myAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+app.UseMiddleware<CsrfProtectionMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
 

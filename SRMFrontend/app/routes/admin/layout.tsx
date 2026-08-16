@@ -15,15 +15,12 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import { getMe, type MeResponse } from "../../lib/api/auth";
+import { getMe, logout as logoutApi, type MeResponse } from "../../lib/api/auth";
 import { useAuthStore } from "../../lib/stores/auth-store";
 
 const DRAWER_WIDTH = 240;
 
 export async function clientLoader(): Promise<MeResponse> {
-  if (!useAuthStore.getState().isTokenValid()) {
-    throw redirect("/admin/login");
-  }
   try {
     const me = await getMe();
     useAuthStore.getState().setUser(me);
@@ -38,7 +35,12 @@ export default function AdminLayout() {
   const me = useLoaderData<typeof clientLoader>();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await logoutApi();
+    } catch {
+      // fall through - still clear local state and navigate away
+    }
     useAuthStore.getState().logout();
     navigate("/admin/login");
   };
