@@ -26,8 +26,7 @@ namespace SRMBackend.Controllers
         {
 
             var user = await authService.GetMembersAsync(request.Username);
-            var isPass = cryptoManger.VerifyPassword(request.Password, user.PasswordHash, user.PasswordSalt);
-            if (user == null || !isPass)
+            if (user == null || !cryptoManger.VerifyPassword(request.Password, user.PasswordHash, user.PasswordSalt))
             {
                 return Unauthorized(new { message = "Invalid username or password" });
             }
