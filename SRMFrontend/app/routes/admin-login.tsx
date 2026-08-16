@@ -1,7 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { Button, Container, Paper, Stack, TextField, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Paper,
+  Stack,
+  TextField,
+  Toolbar,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import LoginIcon from "@mui/icons-material/Login";
 import Swal from "sweetalert2";
 
 import type { Route } from "./+types/admin-login";
@@ -16,6 +29,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function AdminLogin() {
+  const theme = useTheme();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -41,50 +55,91 @@ export default function AdminLogin() {
   };
 
   return (
-    <Container maxWidth="xs" sx={{ py: 6 }}>
-      <Button
-        component={Link}
-        to="/"
-        startIcon={<ArrowBackIcon />}
-        sx={{ mb: 2 }}
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <AppBar position="static" elevation={0}>
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            ระบบบริหารจัดการคำขอทุนการศึกษา
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          py: 6,
+          px: 2,
+          background: `linear-gradient(180deg, ${theme.palette.primary.main}14 0%, ${theme.palette.background.default} 45%)`,
+        }}
       >
-        กลับหน้าหลัก
-      </Button>
+        <Container maxWidth="xs">
+          <Button
+            component={Link}
+            to="/"
+            startIcon={<ArrowBackIcon />}
+            sx={{ mb: 2 }}
+          >
+            กลับหน้าหลัก
+          </Button>
 
-      <Paper elevation={2} sx={{ p: { xs: 3, sm: 4 } }}>
-        <Typography variant="h5" component="h1" gutterBottom>
-          เข้าสู่ระบบเจ้าหน้าที่
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-          สำหรับเจ้าหน้าที่ผู้ดูแลระบบบริหารจัดการคำขอทุนการศึกษา
-        </Typography>
-
-        <form onSubmit={handleSubmit} noValidate>
-          <Stack spacing={2.5}>
-            <TextField
-              label="ชื่อผู้ใช้"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              fullWidth
-            />
-            <TextField
-              label="รหัสผ่าน"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              fullWidth
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              disabled={submitting}
+          <Paper elevation={3} sx={{ p: { xs: 3, sm: 5 }, borderRadius: 3, textAlign: "center" }}>
+            <Box
+              sx={{
+                width: 64,
+                height: 64,
+                borderRadius: "50%",
+                bgcolor: "primary.main",
+                color: "primary.contrastText",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                mx: "auto",
+                mb: 3,
+              }}
             >
-              เข้าสู่ระบบ
-            </Button>
-          </Stack>
-        </form>
-      </Paper>
-    </Container>
+              <AdminPanelSettingsIcon sx={{ fontSize: 32 }} />
+            </Box>
+
+            <Typography variant="h5" component="h1" gutterBottom sx={{ fontWeight: 700 }}>
+              เข้าสู่ระบบเจ้าหน้าที่
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+              สำหรับเจ้าหน้าที่ผู้ดูแลระบบบริหารจัดการคำขอทุนการศึกษา
+            </Typography>
+
+            <form onSubmit={handleSubmit} noValidate>
+              <Stack spacing={2.5}>
+                <TextField
+                  label="ชื่อผู้ใช้"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  fullWidth
+                />
+                <TextField
+                  label="รหัสผ่าน"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  fullWidth
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  startIcon={<LoginIcon />}
+                  disabled={submitting}
+                  sx={{ borderRadius: 2, py: 1.25 }}
+                >
+                  เข้าสู่ระบบ
+                </Button>
+              </Stack>
+            </form>
+          </Paper>
+        </Container>
+      </Box>
+    </Box>
   );
 }

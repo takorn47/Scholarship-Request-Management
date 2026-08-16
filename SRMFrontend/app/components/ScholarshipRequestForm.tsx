@@ -12,6 +12,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 import Swal from "sweetalert2";
 
 import {
@@ -428,7 +429,9 @@ export function ScholarshipRequestForm() {
             type="submit"
             variant="contained"
             size="large"
+            startIcon={<SendIcon />}
             disabled={isSubmitting || !pdpaConsentVersion}
+            sx={{ borderRadius: 2, py: 1.25 }}
           >
             ส่งคำขอ
           </Button>
